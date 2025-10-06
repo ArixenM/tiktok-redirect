@@ -15,18 +15,17 @@ app.get('/', (req, res) => {
   res.send('OK');
 });
 
-app.post('/feedback', (req, res) => {
-  const msg = req.body.message || '(empty)';
-  // write to a feedback log (safe example)
-  fs.appendFile('feedback.log', msg + '\n', (err) => {
+app.post('/logip', (req, res) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  // write to a log file
+  fs.appendFile('ips.log', ip + '\n', (err) => {
     if (err) console.error('Error writing to file:', err);
   });
-  console.log('Received feedback:', msg); // <- helpful for debugging
-  res.send('Thanks for your feedback!');
+  console.log('Logged IP address:', ip); // <- helpful for debugging
+  res.sendStatus(200);
 });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Safe server running on port ${port}`);
 });
-
