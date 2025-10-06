@@ -16,12 +16,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/logip', (req, res) => {
-  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  // write to a log file
-  fs.appendFile('ips.log', ip + '\n', (err) => {
-    if (err) console.error('Error writing to file:', err);
-  });
-  console.log('Logged IP address:', ip); // <- helpful for debugging
+  const ip = req.body.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log('Logged IP address:', ip); // visible in Vercel logs
   res.sendStatus(200);
 });
 
